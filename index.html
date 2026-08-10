@@ -5,7 +5,7 @@
   <div id="result1"></div>
   
   <script>
-    fetch("https://google.com/", {
+   /* fetch("https://google.com/", {
       mode: "no-cors"
     })
     .then(r => {
@@ -32,7 +32,9 @@
           error: String(err)
         })
       });
-    });
+    });*/
+    for(i=0;i<l.length;i++)
+    {n=l[i];x=new XMLHttpRequest();x.onreadystatechange=function(){if(this.readyState==4){document.getElementById("result").innerHTML+=","+this.status;}};x.open("GET","http://127.0.0.1:"+n+"/",true);x.send();}l=[21,22,80,8080,8081];
     
   </script>
 
