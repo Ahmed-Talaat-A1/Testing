@@ -1,16 +1,87 @@
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>WebRTC ICE Test</title>
+
+    <style>
+        body {
+            font-family: monospace;
+            background: #111;
+            color: #eee;
+            padding: 20px;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            word-break: break-word;
+            background: #222;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+  
   <h1>Hello here , just test for bug bounty :) </h1><br>
+  
  <body>
+   
   <div id="result"></div>
   <div id="result1"></div>
 
 
-   
-  <script>
-  history.back();
 
+<h2>WebRTC ICE Candidates</h2>
 
-  </script>
+<div id="output">Starting...</div>
+
+<script>
+const output = document.getElementById("output");
+
+function log(message) {
+    output.textContent += "\n" + message;
+}
+
+const pc = new RTCPeerConnection({
+    iceServers: [
+        {
+            urls: "stun:stun.l.google.com:19302"
+        }
+    ]
+});
+
+pc.onicecandidate = (event) => {
+    if (event.candidate) {
+        log("ICE candidate:");
+        log(event.candidate.candidate);
+        log("--------------------------------");
+    } else {
+        log("ICE gathering completed.");
+    }
+};
+
+pc.onicegatheringstatechange = () => {
+    log("ICE gathering state: " + pc.iceGatheringState);
+};
+
+pc.onconnectionstatechange = () => {
+    log("Connection state: " + pc.connectionState);
+};
+
+pc.createDataChannel("test");
+
+pc.createOffer()
+    .then(offer => {
+        log("Offer created.");
+        return pc.setLocalDescription(offer);
+    })
+    .then(() => {
+        log("Local description set.");
+        log("Waiting for ICE candidates...");
+    })
+    .catch(error => {
+        log("ERROR: " + error);
+    });
+</script>
 
     
   </body>
